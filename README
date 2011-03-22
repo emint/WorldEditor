@@ -1,0 +1,28 @@
+WorldEditor is my attempt at creating an easy to use format and editor for creating worlds to use in SDL-backed games.
+
+The idea is to present a GUI through which users can lay down textures and objects which save into a file that can be loaded within their own games. This will, hopefully, allow users to create levels and worlds easily and use them in their games with greater ease.
+
+I imagine a binary format '.wrld' which is defined as follows.
+
+<Version - uint8>
+  Version of the .wrld format
+<Auxilary - 32 bytes>
+  Reserved space for features to come
+<World Height - uint32>
+  Height of world measured in pixels
+<World Width - uint32>
+  Width of world measured in pixels
+<Texture>
+[Much more to come]
+
+Preliminary Features:
+Should work with any bitmap the user likes
+Should allow users to define collision terrain
+Should have easy to use GUI for user to lay out there
+  worlds
+Should provide easy to use driver to read the .wrld
+  format into SDL-backed programs
+
+
+Next I aim to provide functionality in form of C++ classes to read and use these worlds. 
+
