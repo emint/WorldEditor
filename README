@@ -12,17 +12,34 @@ I imagine a binary format '.wrld' which is defined as follows.
   Height of world measured in pixels
 <World Width - uint32>
   Width of world measured in pixels
-<Texture>
+<Texture square width - uint32>
+  The width of one texture square. 
+<Texture square height - uint32>
+  The height of one texture square.
+
+---------------Texture Store--------------
+<Texture 1>
+<Texture 2>
+...
+<Texture n>
+
+
+Definitions:
+<Texture i> is a file path starting with known directory 'textures/'
+
 [Much more to come]
 
 Preliminary Features:
 Should work with any bitmap the user likes
 Should allow users to define collision terrain
-Should have easy to use GUI for user to lay out there
+Should have easy to use GUI for user to lay out their
   worlds
 Should provide easy to use driver to read the .wrld
   format into SDL-backed programs
 
 
-Next I aim to provide functionality in form of C++ classes to read and use these worlds. 
+Next I aim to provide functionality in form of C++ classes to read and use these worlds.
+
+
+
 
