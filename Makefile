@@ -20,12 +20,13 @@ WORLD_EDIT_LIB = libworld.a
 #Testing library, assuming gtest in homefolder
 TESTLIBS = $(HOME)/gmock-1.6.0/make/gmock_main.a
 
-#Sources and headers
+#Sources and headers that will be going into the library 
 LIB_HDRS = Exceptions/InvalidArgumentException.h Exceptions/ResourceNotFoundException.h
-LIB_HDRS += Assets/AssetManager.h
+LIB_HDRS += Assets/AssetManager.h Filesystem/Directory.h Display/SurfaceLoader.h
 
 LIB_SRCSS = Exceptions/InvalidArgumentException.cpp Exceptions/ResourceNotFoundException.cpp
-LIB_SRCSS += Assets/AssetManager.cpp
+LIB_SRCSS += Assets/AssetManager.cpp Filesystem/Directory.cpp Display/SurfaceLoader.cpp
+
 
 LIB_HEADERS = $(addprefix $(MAIN_SRC_ROOT), $(LIB_HDRS))
 LIB_SOURCES = $(addprefix $(MAIN_SRC_ROOT), $(LIB_SRCSS))
@@ -42,6 +43,7 @@ TEST_HEADERS =
 
 #Objects
 LIB_OBJECTS = $(LIB_SOURCES:.cpp=.o)
+
 #Objects that can be run
 MAIN_OBJS = $(MAIN_SOURCES:.cpp=.o)
 TEST_OBJS = $(TEST_SOURCES:.cpp=.o)
@@ -59,14 +61,14 @@ editor: library $(MAIN_OBJS) $(LIB_OBJECTS) $(LIB_HEADERS)
 unit_tests: $(TEST_OBJS) $(LIB_OBJECTS) $(LIB_HEADERS) $(LIB_SOURCES) $(TEST_HEADERS) $(TEST_SOURCES) 
 	$(CXX) $(CXXFLAGS)  $(LIBS) $(TESTLIBS) -o $@ $(LIB_OBJECTS) $(TEST_OBJS)
 
-library: $(LIB_OBJECTS) $(LIB_HEADERS) $(LIB_SOURCES)
+library: $(LIB_OBJECTS) $(LIB_HEADERS) $(LIB_SOURCES) 
 	 $(LIBCREATE) $(WORLD_EDIT_LIB) $(LIB_OBJECTS)
 	
 ##Generate dependencies using -MM gcc flag
-dependencies: $(LIB_SOURCES) $(LIB_HEADERS) $(TEST_SOURCES) $(TEST_HEADERS)
-	$(CXX) $(CXXFLAGS) -MM $(LIB_SOURCES) $(TEST_SOURCES) > $(DEPENDENCY_FILE)
+dependencies: $(LIB_SOURCES) $(LIB_HEADERS)  $(TEST_SOURCES) $(TEST_HEADERS)
+	$(CXX) $(CXXFLAGS) -MM  $(LIB_SOURCES) $(TEST_SOURCES) > $(DEPENDENCY_FILE)
 
 -include Makefile.dependencies
 
 clean:
-	rm -f $(TARGETS) $(MAIN_OBJS) $(TEST_OBJS) $(OBJECTS) *~ Makefile.dependencies
+	rm -f $(TARGETS) $(MAIN_OBJS) $(TEST_OBJS) $(OBJECTS) $(WORLD_EDIT_LIB) *~ Makefile.dependencies

@@ -5,6 +5,13 @@ ResourceNotFoundException.o: \
  main/src/Exceptions/ResourceNotFoundException.cpp \
  main/src/Exceptions/ResourceNotFoundException.h
 AssetManager.o: main/src/Assets/AssetManager.cpp \
- main/src/Assets/AssetManager.h \
- main/src/Assets/../Exceptions/ResourceNotFoundException.h \
- main/src/Assets/../Exceptions/InvalidArgumentException.h
+ main/src/Assets/AssetManager.h main/src/Assets/../Filesystem/Directory.h \
+ main/src/Assets/../Filesystem/../Exceptions/InvalidArgumentException.h \
+ main/src/Assets/../Filesystem/../Exceptions/ResourceNotFoundException.h \
+ main/src/Assets/../Display/SurfaceLoader.h
+Directory.o: main/src/Filesystem/Directory.cpp \
+ main/src/Filesystem/Directory.h \
+ main/src/Filesystem/../Exceptions/InvalidArgumentException.h \
+ main/src/Filesystem/../Exceptions/ResourceNotFoundException.h
+SurfaceLoader.o: main/src/Display/SurfaceLoader.cpp \
+ main/src/Display/SurfaceLoader.h

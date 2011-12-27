@@ -9,19 +9,19 @@
 #define ASSETMANAGER_H_
 
 #include <string>
+#include "../Filesystem/Directory.h"
+#include "../Display/SurfaceLoader.h"
 
-#include "boost/filesystem.hpp"
-#include "../Exceptions/ResourceNotFoundException.h"
-#include "../Exceptions/InvalidArgumentException.h"
 using namespace std;
 
 class AssetManager {
   public:
-    AssetManager();
+    AssetManager(SurfaceLoader* loader);
     virtual ~AssetManager();
 
     virtual void loadAssets(string assetFolder);
-
+  private:
+    SurfaceLoader* loader_;
 };
 
 #endif /* ASSETMANAGER_H_ */

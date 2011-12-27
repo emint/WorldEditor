@@ -7,9 +7,8 @@
 
 #include "AssetManager.h"
 #include <iostream>
-using namespace boost::filesystem;
 
-AssetManager::AssetManager() {
+AssetManager::AssetManager(SurfaceLoader* loader) : loader_(loader) {
   // TODO Auto-generated constructor stub
 
 }
@@ -19,19 +18,12 @@ AssetManager::~AssetManager() {
 }
 
 void AssetManager::loadAssets(string assetFolder){
-  path folder(assetFolder);
-  if (!exists(folder)){
-    throw ResourceNotFoundException("Folder does not exist");
-  }
-  if (!is_directory(folder)){
-    throw InvalidArgumentException("Argument is not a folder");
-  }
+  Directory dir(assetFolder);
 
-  for (directory_iterator iter(folder), end; iter != end; ++iter){
-    if(extension(iter->path()) == ".png"){
-      cout<<"Found image: "<<basename(iter->path())<<endl;
-    }
-  }
+  vector<string> imgs = dir.getFileWithExtension(".png");
 
+  for(vector<string>::iterator iter = imgs.begin(); iter != imgs.end(); ++iter){
+    loader_->loadImage(*iter);
+  }
 
 }
