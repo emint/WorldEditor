@@ -3,9 +3,10 @@ HOME = /home/emint
 
 
 #Path to avoid the "../" in includes
-SRC_PATH = .
+SRC_PATH = main/src
 
 MAIN_SRC_ROOT = main/src/
+MAIN_TEST_ROOT = main/test/
 
 #Compiler, flags, and system libraries
 CXXFLAGS = -Wall -g -Werror -I$(HOME)/gtest-1.6.0/include -I$(HOME)/gmock-1.6.0/include -I$(SRC_PATH)
@@ -22,10 +23,10 @@ TESTLIBS = $(HOME)/gmock-1.6.0/make/gmock_main.a
 
 #Sources and headers that will be going into the library 
 LIB_HDRS = Exceptions/InvalidArgumentException.h Exceptions/ResourceNotFoundException.h
-LIB_HDRS += Assets/AssetManager.h Filesystem/Directory.h Display/SurfaceLoader.h
+LIB_HDRS += Assets/AssetManager.h Filesystem/Directory.h Filesystem/DirectoryImpl.h  Display/SurfaceLoader.h
 
 LIB_SRCSS = Exceptions/InvalidArgumentException.cpp Exceptions/ResourceNotFoundException.cpp
-LIB_SRCSS += Assets/AssetManager.cpp Filesystem/Directory.cpp Display/SurfaceLoader.cpp
+LIB_SRCSS += Assets/AssetManager.cpp Filesystem/DirectoryImpl.cpp Display/SurfaceLoader.cpp
 
 
 LIB_HEADERS = $(addprefix $(MAIN_SRC_ROOT), $(LIB_HDRS))
@@ -37,9 +38,13 @@ MAIN_SRCSS = main.cpp
 MAIN_SOURCES = $(addprefix $(MAIN_SRC_ROOT), $(MAIN_SRCSS))
 
 #For testing source files
-TEST_SOURCES = 
+TEST_SRCS = AssetManagerTest.cpp
 
-TEST_HEADERS = 
+TEST_HDRS = Mock_SurfaceLoader.h Mock_Directory.h
+
+TEST_SOURCES = $(addprefix $(MAIN_TEST_ROOT), $(TEST_SRCS))
+
+TEST_HEADERS = $(addprefix $(MAIN_TEST_ROOT), $(TEST_HDRS))
 
 #Objects
 LIB_OBJECTS = $(LIB_SOURCES:.cpp=.o)
@@ -59,7 +64,7 @@ editor: library $(MAIN_OBJS) $(LIB_OBJECTS) $(LIB_HEADERS)
 	$(CXX) $(CXXFLAGS) $(LIBS) -o $@ $(MAIN_OBJS) -L. -lworld 
 
 unit_tests: $(TEST_OBJS) $(LIB_OBJECTS) $(LIB_HEADERS) $(LIB_SOURCES) $(TEST_HEADERS) $(TEST_SOURCES) 
-	$(CXX) $(CXXFLAGS)  $(LIBS) $(TESTLIBS) -o $@ $(LIB_OBJECTS) $(TEST_OBJS)
+	$(CXX) $(CXXFLAGS)  $(LIBS) $(TESTLIBS) -o $@  $(TEST_OBJS) $(LIB_OBJECTS)
 
 library: $(LIB_OBJECTS) $(LIB_HEADERS) $(LIB_SOURCES) 
 	 $(LIBCREATE) $(WORLD_EDIT_LIB) $(LIB_OBJECTS)

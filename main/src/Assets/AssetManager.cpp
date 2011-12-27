@@ -17,10 +17,8 @@ AssetManager::~AssetManager() {
   // TODO Auto-generated destructor stub
 }
 
-void AssetManager::loadAssets(string assetFolder){
-  Directory dir(assetFolder);
-
-  vector<string> imgs = dir.getFileWithExtension(".png");
+void AssetManager::loadAssets(Directory* dir){
+  vector<string> imgs = dir->getFileWithExtension(".png");
 
   for(vector<string>::iterator iter = imgs.begin(); iter != imgs.end(); ++iter){
     loader_->loadImage(*iter);

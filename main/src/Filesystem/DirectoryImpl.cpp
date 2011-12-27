@@ -5,11 +5,11 @@
  *      Author: emint
  */
 
-#include "Directory.h"
+#include "DirectoryImpl.h"
 #include <iostream>
 using namespace std;
 
-Directory::Directory(string dirName) {
+DirectoryImpl::DirectoryImpl(string dirName) {
   dirPath = new path(dirName);
 
   if (!exists(*dirPath)){
@@ -20,11 +20,14 @@ Directory::Directory(string dirName) {
   }
 }
 
-Directory::~Directory() {
+DirectoryImpl::DirectoryImpl() : dirPath(NULL) {
+
+}
+DirectoryImpl::~DirectoryImpl() {
   // TODO Auto-generated destructor stub
 }
 
-vector<string> Directory::getFileWithExtension(string ext) const{
+vector<string> DirectoryImpl::getFileWithExtension(string ext) const{
   vector<string> files;
   for (directory_iterator iter(*dirPath), end; iter != end; ++iter){
     if (extension(iter->path()) == ext){

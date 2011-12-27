@@ -5,8 +5,8 @@
  *      Author: emint
  */
 
-#ifndef DIRECTORY_H_
-#define DIRECTORY_H_
+#ifndef DIRECTORYIMPL_H_
+#define DIRECTORYIMPL_H_
 
 #include <string>
 
@@ -15,16 +15,19 @@
 #include "../Exceptions/InvalidArgumentException.h"
 #include "../Exceptions/ResourceNotFoundException.h"
 
+#include "Directory.h"
+
 using namespace boost::filesystem;
 using namespace std;
 
-class Directory {
+class DirectoryImpl : public Directory {
   public:
-    Directory() {}
+    DirectoryImpl(string dirName);
+    DirectoryImpl();
 
-    virtual ~Directory(){}
+    virtual ~DirectoryImpl();
 
-    virtual vector<string> getFileWithExtension(string extension) const = 0;
+    virtual vector<string> getFileWithExtension(string extension) const;
   private:
     path* dirPath;
 };

@@ -9,7 +9,7 @@
 #define ASSETMANAGER_H_
 
 #include <string>
-#include "../Filesystem/Directory.h"
+#include "../Filesystem/DirectoryImpl.h"
 #include "../Display/SurfaceLoader.h"
 
 using namespace std;
@@ -19,7 +19,7 @@ class AssetManager {
     AssetManager(SurfaceLoader* loader);
     virtual ~AssetManager();
 
-    virtual void loadAssets(string assetFolder);
+    virtual void loadAssets(Directory* assetFolder);
   private:
     SurfaceLoader* loader_;
 };
