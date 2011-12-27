@@ -1,0 +1,7 @@
+*.o
+*.a
+.cproject
+.project
+.metadata
+editor
+unit_tests

@@ -1,0 +1,10 @@
+InvalidArgumentException.o: \
+ main/src/Exceptions/InvalidArgumentException.cpp \
+ main/src/Exceptions/InvalidArgumentException.h
+ResourceNotFoundException.o: \
+ main/src/Exceptions/ResourceNotFoundException.cpp \
+ main/src/Exceptions/ResourceNotFoundException.h
+AssetManager.o: main/src/Assets/AssetManager.cpp \
+ main/src/Assets/AssetManager.h \
+ main/src/Assets/../Exceptions/ResourceNotFoundException.h \
+ main/src/Assets/../Exceptions/InvalidArgumentException.h
